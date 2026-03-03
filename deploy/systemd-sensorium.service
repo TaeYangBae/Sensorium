@@ -1,5 +1,5 @@
 [Unit]
-Description=Notion-Lite Workspace
+Description=Sensorium Site
 After=network.target
 
 [Service]

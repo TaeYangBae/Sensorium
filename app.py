@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Notion-like minimal workspace app (single-process HTTP server).
+# Sensorium landing page server (single-process HTTP server).
 
 from __future__ import annotations
 
@@ -261,7 +261,7 @@ def load_file(file_path: Path, fallback: bytes = b"") -> bytes:
         return fallback
 
 
-class NotionLikeHandler(BaseHTTPRequestHandler):
+class SensoriumHandler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
 
     def _client_ip(self):
@@ -426,7 +426,7 @@ def main():
     global store, ALLOW_NETWORKS, DATA_FILE
 
     default_data_file = str(DATA_FILE)
-    parser = argparse.ArgumentParser(description="간단한 노션형 사무실 위키 서버")
+    parser = argparse.ArgumentParser(description="센서리움 랜딩 페이지 서버")
     parser.add_argument("--host", default="0.0.0.0")
     parser.add_argument("--port", type=int, default=8081)
     parser.add_argument("--data-file", default=default_data_file)
@@ -439,12 +439,12 @@ def main():
     parser.add_argument(
         "--tls-cert",
         default="",
-        help="HTTPS 사용 시 인증서 경로. 예: /home/.../deploy/certs/notion-lite.crt",
+        help="HTTPS 사용 시 인증서 경로. 예: /home/.../deploy/certs/sensorium.crt",
     )
     parser.add_argument(
         "--tls-key",
         default="",
-        help="HTTPS 사용 시 키 경로. 예: /home/.../deploy/certs/notion-lite.key",
+        help="HTTPS 사용 시 키 경로. 예: /home/.../deploy/certs/sensorium.key",
     )
     args = parser.parse_args()
 
@@ -457,7 +457,7 @@ def main():
     store._data = store._normalize(store._data)
     store.save()
 
-    server = ThreadingHTTPServer((args.host, args.port), NotionLikeHandler)
+    server = ThreadingHTTPServer((args.host, args.port), SensoriumHandler)
     if args.tls_cert:
         server.socket = create_tls_context(args.tls_cert, args.tls_key).wrap_socket(
             server.socket, server_side=True
@@ -467,7 +467,7 @@ def main():
         scheme = "http"
 
     print(
-        f"[notion-lite] running on {scheme}://{args.host}:{args.port} "
+        f"[sensorium] running on {scheme}://{args.host}:{args.port} "
         f"(allow networks: {', '.join(args.allow)})"
     )
     try:

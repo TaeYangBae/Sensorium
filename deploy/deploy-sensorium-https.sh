@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SERVICE_NAME=notion-lite-https
-SERVICE_FILE="/home/rnd/ssd/sunny/practice/work-main/deploy/systemd-notion-lite-https.service"
+SERVICE_NAME=sensorium-https
+SERVICE_FILE="/home/rnd/ssd/sunny/practice/work-main/deploy/systemd-sensorium-https.service"
 TARGET_DIR="/etc/systemd/system"
 
 if [[ $EUID -ne 0 ]]; then
@@ -10,9 +10,9 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-if [[ ! -f /home/rnd/ssd/sunny/practice/work-main/deploy/certs/notion-lite.crt || ! -f /home/rnd/ssd/sunny/practice/work-main/deploy/certs/notion-lite.key ]]; then
+if [[ ! -f /home/rnd/ssd/sunny/practice/work-main/deploy/certs/sensorium.crt || ! -f /home/rnd/ssd/sunny/practice/work-main/deploy/certs/sensorium.key ]]; then
   echo "인증서가 없습니다. 다음을 먼저 실행하세요:"
-  echo "  ./deploy/generate-self-signed-notion-lite-cert.sh"
+  echo "  ./deploy/generate-self-signed-sensorium-cert.sh"
   exit 1
 fi
 

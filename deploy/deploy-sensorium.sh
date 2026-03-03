@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SERVICE_NAME=notion-lite
-SERVICE_FILE="/home/rnd/ssd/sunny/practice/work-main/deploy/systemd-notion-lite.service"
+SERVICE_NAME=sensorium
+SERVICE_FILE="/home/rnd/ssd/sunny/practice/work-main/deploy/systemd-sensorium.service"
 TARGET_DIR="/etc/systemd/system"
 
 if [[ $EUID -ne 0 ]]; then
