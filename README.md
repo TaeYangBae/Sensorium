@@ -84,3 +84,18 @@ sudo ./deploy/deploy-sensorium-https.sh
 ## 저장 위치
 
 `workspace_data.json`에 페이지/블록 데이터가 저장됩니다.
+
+## Cloudflare Pages 배포 (sensorium-9pv)
+
+이 저장소는 정적 페이지 배포가 가능하도록 루트에 `index.html`이 위치합니다.
+
+Cloudflare Pages에서 다음 값으로 설정하면 `sensorium-9pv.pages.dev`로 노출됩니다.
+
+1. 접속: Cloudflare → Pages → 연결 계정/레포지토리 선택(`TaeYangBae/Sensorium`)
+2. `Build settings`  
+   - Build command: 비워두거나 ` `  
+   - Build output directory: `.`
+3. 배포 완료 후 페이지에서 `https://sensorium-9pv.pages.dev`로 접속
+
+참고: 정적 배포판은 `index.html` + `static/`만 사용하므로, 실시간 API 기능이 필요한 경우
+별도 백엔드(예: Workers/API Gateway)를 함께 구성해야 합니다.
