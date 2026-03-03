@@ -79,8 +79,11 @@ body {
   transition: opacity 0.25s;
 }
 
-.menu a:hover {
+.menu a:hover,
+.menu a.active,
+.menu a:focus-visible {
   opacity: 1;
+  color: var(--accent);
 }
 
 .menu-toggle {
@@ -212,6 +215,8 @@ h2 {
   min-height: 180px;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .project::after {
@@ -238,6 +243,24 @@ h2 {
 .project p {
   margin: 0;
   color: var(--muted);
+}
+
+.project-more {
+  margin-top: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.project:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 24px rgba(115, 236, 247, 0.2);
+}
+
+.project:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 3px;
 }
 
 .split {
@@ -291,6 +314,67 @@ h2 {
 .journal h3 {
   margin: 8px 0 0;
   font-size: 1rem;
+}
+
+.project-detail {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateY(100%);
+  z-index: 30;
+  background: rgba(9, 12, 28, 0.96);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.project-detail.show {
+  transform: translateY(0);
+}
+
+.project-detail-content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 28px 20px 38px;
+  position: relative;
+}
+
+.detail-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.detail-close:hover {
+  background: var(--panel);
+}
+
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 29;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.detail-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.section,
+.footer {
+  scroll-margin-top: 100px;
 }
 
 .footer {

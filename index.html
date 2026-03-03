@@ -16,10 +16,10 @@
       <div class="brand">SENSORIUM</div>
       <button class="menu-toggle" type="button" aria-label="메뉴 열기">☰</button>
       <nav class="menu" id="menu">
-        <a href="#works">Works</a>
-        <a href="#studio">Studio</a>
-        <a href="#journal">Journal</a>
-        <a href="#contact">Contact</a>
+        <a href="#works" class="menu-link">Works</a>
+        <a href="#studio" class="menu-link">Studio</a>
+        <a href="#journal" class="menu-link">Journal</a>
+        <a href="#contact" class="menu-link">Contact</a>
       </nav>
     </header>
 
@@ -62,25 +62,29 @@
           <h2>작업물</h2>
         </div>
         <div class="cards">
-          <article class="project reveal">
+          <article class="project reveal" data-project="nightline">
             <span class="tag">Immersive Installation</span>
             <h3>Nightline Pavilion</h3>
             <p>투광 조명과 음향 트리거를 이용한 야간 몰입형 전시</p>
+            <p class="project-more">자세히 보기</p>
           </article>
-          <article class="project reveal">
+          <article class="project reveal" data-project="pulse">
             <span class="tag">Brand Campaign</span>
             <h3>Pulse 2089</h3>
             <p>브랜드 스토리텔링 기반 이벤트 무대 연출 및 AR 체험형 콘텐츠</p>
+            <p class="project-more">자세히 보기</p>
           </article>
-          <article class="project reveal">
+          <article class="project reveal" data-project="urban">
             <span class="tag">Space Experience</span>
             <h3>Urban Echoes</h3>
             <p>도심형 팝업 공간에서 동선 기반 미디어월 연동 퍼포먼스</p>
+            <p class="project-more">자세히 보기</p>
           </article>
-          <article class="project reveal">
+          <article class="project reveal" data-project="liquid">
             <span class="tag">Live Performance</span>
             <h3>Liquid Stage</h3>
             <p>실시간 데이터 기반 조명 반응형 콘서트 무대</p>
+            <p class="project-more">자세히 보기</p>
           </article>
         </div>
       </section>
@@ -107,7 +111,18 @@
         </aside>
       </section>
 
-      <section id="journal" class="section reveal">
+  
+    <section id="projectDetail" class="project-detail" aria-hidden="true">
+      <div class="project-detail-content">
+        <button class="detail-close" type="button" aria-label="상세 패널 닫기">✕</button>
+        <p id="detailBadge" class="tag"></p>
+        <h3 id="detailTitle"></h3>
+        <p id="detailDescription"></p>
+      </div>
+    </section>
+
+    <div id="detailOverlay" class="detail-overlay" aria-hidden="true"></div>
+    <section id="journal" class="section reveal">
         <div class="section-header">
           <p class="eyebrow">Journal</p>
           <h2>최근 이야기</h2>
