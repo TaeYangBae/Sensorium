@@ -234,6 +234,12 @@ ul {
   pointer-events: auto;
 }
 
+.gnb > ul > li.is-open .sub-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 .sub-menu a {
   display: block;
   padding: 10px 14px;

@@ -164,6 +164,43 @@
     });
   });
 
+  // 데스크톱 메뉴(홍보실 포함) 클릭 토글 지원
+  const desktopNav = document.querySelector('.gnb');
+  const desktopHasSub = document.querySelectorAll('.gnb .has-sub');
+  const closeDesktopSubMenus = () => {
+    desktopHasSub.forEach((item) => {
+      item.classList.remove('is-open');
+      const trigger = item.querySelector(':scope > a');
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  };
+
+  desktopHasSub.forEach((item) => {
+    const trigger = item.querySelector(':scope > a');
+    if (!trigger) return;
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.addEventListener('click', (event) => {
+      if (window.matchMedia('(max-width: 840px)').matches) return;
+      event.preventDefault();
+
+      const isOpen = item.classList.contains('is-open');
+      closeDesktopSubMenus();
+      if (!isOpen) {
+        item.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!desktopNav) return;
+    if (!desktopNav.contains(event.target)) {
+      closeDesktopSubMenus();
+    }
+  });
+
   // 캐러셀(파트너/뉴스레터)
   const moveCarousel = (id, direction = 1) => {
     const track = document.getElementById(id);
