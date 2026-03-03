@@ -155,7 +155,7 @@ ul {
 .contact-info {
   justify-self: end;
   display: flex;
-  gap: 8px;
+  gap: 3px;
   flex-wrap: wrap;
   justify-content: flex-end;
 }
@@ -163,11 +163,19 @@ ul {
 .contact-info dl {
   margin: 0;
   display: flex;
-  gap: 6px;
+  gap: 0;
+}
+
+.contact-info dd {
+  margin: 0;
 }
 
 .contact-info dt {
   font-weight: 700;
+}
+
+.contact-info dt::after {
+  content: ':';
 }
 
 .gnb {
