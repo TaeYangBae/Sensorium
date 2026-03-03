@@ -1,0 +1,16 @@
+[Unit]
+Description=Notion-Lite Workspace
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/rnd/ssd/sunny/practice/work-main
+User=sunny
+Group=sunny
+ExecStart=/usr/bin/python3 /home/rnd/ssd/sunny/practice/work-main/app.py --host 0.0.0.0 --port 8081 --allow 192.168.0.0/24 --allow 127.0.0.1/32
+Restart=always
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

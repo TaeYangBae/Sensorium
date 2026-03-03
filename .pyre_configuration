@@ -1,0 +1,17 @@
+{
+  "source_directories": [
+    "src"
+  ],
+  "search_path": [
+    "src",
+    "typings"
+  ],
+  "exclude": [
+    "build",
+    "src/bin",
+    ".venv",
+    ".cache",
+    "Sandbox"
+  ],
+  "strict": false
+}
