@@ -32,6 +32,10 @@ body {
   overflow-x: hidden;
 }
 
+body.detail-open {
+  overflow: hidden;
+}
+
 .aurora {
   pointer-events: none;
   position: fixed;
