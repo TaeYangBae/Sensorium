@@ -8,6 +8,80 @@
   let activeModal = null;
   let lastFocusedElement = null;
 
+  const buildFallbackImageUrl = (img, retry = 0) => {
+    const source = img.getAttribute('src') || '';
+    const altText = (img.getAttribute('alt') || '').toLowerCase();
+    const classText = (img.className || '').toLowerCase();
+    const fileName = source.split('/').pop().replace(/\.[^/.]+$/, '') || 'sensorium';
+    const seedBase = encodeURIComponent((altText || fileName || 'sensorium').replace(/[^a-z0-9]+/gi, '-').slice(0, 56) || 'sensorium');
+
+    const hint = `${source} ${altText} ${classText}`.toLowerCase();
+    let query = 'smart safety technology';
+
+    if (/logo|foot/.test(hint)) query = 'minimal technology logo';
+    else if (/slider|hero|main_s|news|newsletter/.test(hint)) query = 'smart transportation city';
+    else if (/business_img|solution/.test(hint)) query = 'industrial automation factory';
+    else if (/media|partner|partner_slide|notice/.test(hint)) query = 'security monitoring';
+    else if (/contect|contact|support/.test(hint)) query = 'modern office interior';
+
+    const encodedQuery = encodeURIComponent(query);
+    const firstUrl = `https://source.unsplash.com/1200x675/?${encodedQuery}&sig=${seedBase}`;
+    if (retry === 0) return firstUrl;
+
+    return `https://picsum.photos/seed/${seedBase}-fallback-${retry}/1200/675`;
+  };
+
+  const setupImageFallbacks = () => {
+    const images = $$('img');
+    images.forEach((img) => {
+      const source = img.getAttribute('src');
+      if (!source) return;
+      img.dataset.imageFallbackRetry = '0';
+
+      const onImageError = () => {
+        const nextRetry = Number(img.dataset.imageFallbackRetry || '0') + 1;
+        if (nextRetry > 3) {
+          img.removeEventListener('error', onImageError);
+          img.style.opacity = '0.9';
+          img.style.backgroundColor = '#f3f5f7';
+          return;
+        }
+
+        img.dataset.imageFallbackRetry = String(nextRetry);
+        img.src = buildFallbackImageUrl(img, nextRetry);
+      };
+
+      img.addEventListener('error', onImageError);
+    });
+
+    const backgroundTargets = $$('[style]');
+    backgroundTargets.forEach((node, index) => {
+      const styleText = node.getAttribute('style') || '';
+      const match = styleText.match(/background-image\s*:\s*url\(([^)]+)\)/i);
+      if (!match) return;
+
+      const backgroundUrl = match[1].replace(/["']/g, '').trim();
+      const isSensoriumImage = backgroundUrl.includes('sensorium.co.kr') || backgroundUrl.startsWith('/data/') || backgroundUrl.startsWith('/img/');
+      if (!isSensoriumImage) return;
+      if (!backgroundUrl || backgroundUrl === 'none') return;
+      if (backgroundUrl.indexOf('/data/') === -1 && backgroundUrl.indexOf('/img/') === -1) return;
+
+      const probe = new Image();
+      const fallbackImage = () => {
+        const probeAlt = `${node.className || 'background'} image`;
+        const probeImg = document.createElement('img');
+        probeImg.setAttribute('alt', probeAlt);
+        probeImg.setAttribute('src', backgroundUrl);
+        return buildFallbackImageUrl(probeImg, index + 1);
+      };
+
+      probe.onerror = () => {
+        node.style.backgroundImage = `url("${fallbackImage()}")`;
+      };
+      probe.src = backgroundUrl;
+    });
+  };
+
   const getFocusableElements = (root) => {
     return $$(`:is(${FOCUSABLE_SELECTOR})`, root).filter((el) => {
       if (!el.offsetParent && !el.getAttribute('tabindex')) return false;
@@ -430,6 +504,7 @@
   const boot = () => {
     setupMobileNav();
     setupDesktopNavTouch();
+    setupImageFallbacks();
     setupForms();
     setupHeader();
 
