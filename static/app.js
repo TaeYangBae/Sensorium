@@ -8,50 +8,149 @@
   let activeModal = null;
   let lastFocusedElement = null;
 
-  const buildFallbackImageUrl = (img, retry = 0) => {
-    const source = img.getAttribute('src') || '';
-    const altText = (img.getAttribute('alt') || '').toLowerCase();
+  const buildFallbackImageDataUri = ({ title, bg = '#e3ebf8', accent = '#0d56c7', width = 1200, height = 675 }) => {
+    const safeTitle = (title || '').replace(/&/g, '및').replace(/</g, '').replace(/>/g, '').replace(/"/g, "'");
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <defs>
+        <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${bg}" stop-opacity="0.98"/>
+          <stop offset="100%" stop-color="${accent}" stop-opacity="0.22"/>
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#g)"/>
+      <rect y="${height - 4}" width="100%" height="4" fill="${accent}" fill-opacity="0.42"/>
+      <g fill="${accent}" opacity="0.16">
+        <circle cx="${width * 0.18}" cy="${height * 0.24}" r="${Math.max(width, height) * 0.08}"/>
+        <circle cx="${width * 0.84}" cy="${height * 0.72}" r="${Math.max(width, height) * 0.1}"/>
+      </g>
+      <text x="50%" y="50%" text-anchor="middle" fill="#17325f" font-family="Arial, 'Pretendard', 'Noto Sans KR'" font-size="${Math.max(22, Math.floor(width / 22))}" font-weight="700">
+        SENSORIUM
+      </text>
+      <text x="50%" y="58%" text-anchor="middle" fill="#17325f" font-family="Arial, 'Pretendard', 'Noto Sans KR'" font-size="${Math.max(14, Math.floor(width / 40))}" font-weight="600">
+        ${safeTitle || '이미지 준비 중'}
+      </text>
+    </svg>`;
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+  };
+
+  const getFallbackTheme = (img) => {
+    const source = img.getAttribute?.('src') || '';
+    const altText = (img.getAttribute?.('alt') || '').toLowerCase();
     const classText = (img.className || '').toLowerCase();
-    const fileName = source.split('/').pop().replace(/\.[^/.]+$/, '') || 'sensorium';
-    const seedBase = encodeURIComponent((altText || fileName || 'sensorium').replace(/[^a-z0-9]+/gi, '-').slice(0, 56) || 'sensorium');
-
     const hint = `${source} ${altText} ${classText}`.toLowerCase();
-    let query = 'smart safety technology';
 
-    if (/logo|foot/.test(hint)) query = 'minimal technology logo';
-    else if (/slider|hero|main_s|news|newsletter/.test(hint)) query = 'smart transportation city';
-    else if (/business_img|solution/.test(hint)) query = 'industrial automation factory';
-    else if (/media|partner|partner_slide|notice/.test(hint)) query = 'security monitoring';
-    else if (/contect|contact|support/.test(hint)) query = 'modern office interior';
+    if (/logo|foot|brand/.test(hint)) {
+      return { title: 'SENSORIUM LOGO', bg: '#0f2e63', accent: '#57a4ff', width: 640, height: 180 };
+    }
+    if (/main_s|hero|slider|news|newsletter/.test(hint)) {
+      return { title: 'HERO IMAGE', bg: '#112f67', accent: '#45b4ff', width: 1600, height: 700 };
+    }
+    if (/business_img|solution/.test(hint)) {
+      return { title: '센서 솔루션', bg: '#eef5ff', accent: '#1d6de1', width: 1000, height: 560 };
+    }
+    if (/media_img|media/.test(hint)) {
+      return { title: '자료 / 미디어', bg: '#f0f4ff', accent: '#2f66c7', width: 900, height: 540 };
+    }
+    if (/customer|partner|company|logo/.test(hint)) {
+      return { title: '파트너사', bg: '#f5f8ff', accent: '#4b7fd9', width: 620, height: 260 };
+    }
+    return { title: 'SENSORIUM', bg: '#e9effb', accent: '#2d67c1', width: 1200, height: 675 };
+  };
 
-    const encodedQuery = encodeURIComponent(query);
-    const firstUrl = `https://source.unsplash.com/1200x675/?${encodedQuery}&sig=${seedBase}`;
-    if (retry === 0) return firstUrl;
+  const buildFallbackImageUrl = (img, retry = 1) => {
+    const theme = getFallbackTheme(img);
+    const suffix = (retry > 1) ? ` #${retry}` : '';
+    return buildFallbackImageDataUri({
+      ...theme,
+      title: `${theme.title}${suffix}`,
+    });
+  };
 
-    return `https://picsum.photos/seed/${seedBase}-fallback-${retry}/1200/675`;
+  const setImagePlaceholder = (img) => {
+    if (img.classList.contains('image-placeholder')) return;
+    img.classList.add('image-placeholder');
+    img.removeAttribute('srcset');
+  };
+
+  const shouldHandleImageAsset = (url = '') => {
+    const source = (url || '').trim();
+    if (!source || source === '#') return false;
+    if (source.startsWith('data:')) return false;
+    if (source.startsWith('http://') || source.startsWith('https://')) {
+      return /sensorium\.co\.kr\//i.test(source);
+    }
+    if (source.startsWith('//')) {
+      return /sensorium\.co\.kr/i.test(source);
+    }
+    return source.startsWith('/') || source.startsWith('./') || source.startsWith('../');
+  };
+
+  const buildFallbackBackgroundImage = (node, source, retry = 1) => {
+    const hint = `${source || ''} ${(node.className || '')}`.toLowerCase();
+    const classText = (node.className || '').toLowerCase();
+    const img = { getAttribute: () => source, className: classText, classList: { contains: () => false } };
+    const theme = getFallbackTheme(img);
+    const svg = buildFallbackImageDataUri({
+      ...theme,
+      title: retry > 1 ? `${theme.title} #${retry}` : theme.title,
+      width: 1400,
+      height: 760,
+    });
+    return `url("${svg}")`;
+  };
+
+  const markBackgroundPlaceholder = (node) => {
+    if (!node.classList.contains('image-placeholder-bg')) {
+      node.classList.add('image-placeholder-bg');
+    }
   };
 
   const setupImageFallbacks = () => {
     const images = $$('img');
     images.forEach((img) => {
       const source = img.getAttribute('src');
-      if (!source) return;
-      img.dataset.imageFallbackRetry = '0';
-
-      const onImageError = () => {
-        const nextRetry = Number(img.dataset.imageFallbackRetry || '0') + 1;
-        if (nextRetry > 3) {
-          img.removeEventListener('error', onImageError);
-          img.style.opacity = '0.9';
-          img.style.backgroundColor = '#f3f5f7';
-          return;
-        }
-
-        img.dataset.imageFallbackRetry = String(nextRetry);
-        img.src = buildFallbackImageUrl(img, nextRetry);
+      const applyImageFallback = (fallbackIndex = 1) => {
+        img.src = buildFallbackImageUrl(img, fallbackIndex);
+        setImagePlaceholder(img);
+        img.removeAttribute('srcset');
       };
 
-      img.addEventListener('error', onImageError);
+      if (!source) {
+        applyImageFallback(1);
+        return;
+      }
+
+      if (!shouldHandleImageAsset(source)) {
+        img.addEventListener('error', () => {
+          applyImageFallback(2);
+        }, { once: true });
+        return;
+      }
+
+      const fallbackUrl = buildFallbackImageUrl(img, 1);
+      const token = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      img.dataset.imageFallbackToken = token;
+      img.dataset.imageFallbackSource = source;
+
+      img.src = fallbackUrl;
+      setImagePlaceholder(img);
+
+      const probe = new Image();
+      probe.onload = () => {
+        if (img.dataset.imageFallbackToken !== token) return;
+        if (img.dataset.imageFallbackSource !== source) return;
+
+        img.src = source;
+        img.classList.remove('image-placeholder');
+        img.removeAttribute('srcset');
+      };
+      probe.onerror = () => {
+        if (img.dataset.imageFallbackToken !== token) return;
+        if (img.dataset.imageFallbackSource !== source) return;
+
+        img.src = buildFallbackImageUrl(img, 2);
+      };
+      probe.src = source;
     });
 
     const backgroundTargets = $$('[style]');
@@ -61,22 +160,30 @@
       if (!match) return;
 
       const backgroundUrl = match[1].replace(/["']/g, '').trim();
-      const isSensoriumImage = backgroundUrl.includes('sensorium.co.kr') || backgroundUrl.startsWith('/data/') || backgroundUrl.startsWith('/img/');
-      if (!isSensoriumImage) return;
+      if (!shouldHandleImageAsset(backgroundUrl)) return;
       if (!backgroundUrl || backgroundUrl === 'none') return;
-      if (backgroundUrl.indexOf('/data/') === -1 && backgroundUrl.indexOf('/img/') === -1) return;
+
+      const fallbackImage = () => buildFallbackBackgroundImage(node, backgroundUrl, index + 1);
+      const token = `${Date.now()}-${index}-${Math.random().toString(36).slice(2)}`;
+      node.dataset.imageFallbackToken = token;
+      node.dataset.imageFallbackSource = backgroundUrl;
+
+      markBackgroundPlaceholder(node);
+      node.style.backgroundImage = `${fallbackImage()}`;
 
       const probe = new Image();
-      const fallbackImage = () => {
-        const probeAlt = `${node.className || 'background'} image`;
-        const probeImg = document.createElement('img');
-        probeImg.setAttribute('alt', probeAlt);
-        probeImg.setAttribute('src', backgroundUrl);
-        return buildFallbackImageUrl(probeImg, index + 1);
-      };
-
       probe.onerror = () => {
-        node.style.backgroundImage = `url("${fallbackImage()}")`;
+        if (node.dataset.imageFallbackToken !== token) return;
+        if (node.dataset.imageFallbackSource !== backgroundUrl) return;
+
+        node.style.backgroundImage = `${buildFallbackBackgroundImage(node, backgroundUrl, 2)}`;
+      };
+      probe.onload = () => {
+        if (node.dataset.imageFallbackToken !== token) return;
+        if (node.dataset.imageFallbackSource !== backgroundUrl) return;
+
+        node.style.backgroundImage = `url('${backgroundUrl}')`;
+        node.classList.remove('image-placeholder-bg');
       };
       probe.src = backgroundUrl;
     });
@@ -343,6 +450,12 @@
       setMobileNav(opened);
     });
 
+    tmNav?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        setMobileNav(false);
+      });
+    });
+
     menuItems.forEach((dt) => {
       const panel = dt.nextElementSibling;
       if (panel && panel.tagName === 'DD') {
@@ -419,19 +532,21 @@
 
       anchor.addEventListener('click', (event) => {
         if (!window.matchMedia('(max-width: 920px)').matches) {
-          event.preventDefault();
-          const isOpen = item.classList.contains('open');
-          items.forEach((other) => {
-            if (other !== item) {
-              other.classList.remove('open');
-              const otherAnchor = other.querySelector(':scope > a');
-              if (otherAnchor) otherAnchor.setAttribute('aria-expanded', 'false');
-            }
-          });
-
-          item.classList.toggle('open', !isOpen);
-          anchor.setAttribute('aria-expanded', String(!isOpen));
+          return;
         }
+
+        event.preventDefault();
+        const isOpen = item.classList.contains('open');
+        items.forEach((other) => {
+          if (other !== item) {
+            other.classList.remove('open');
+            const otherAnchor = other.querySelector(':scope > a');
+            if (otherAnchor) otherAnchor.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        item.classList.toggle('open', !isOpen);
+        anchor.setAttribute('aria-expanded', String(!isOpen));
       });
     });
 
