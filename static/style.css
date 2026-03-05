@@ -114,6 +114,10 @@ body.no-scroll { overflow: hidden; }
   padding-bottom: 5rem;
 }
 
+.floating-cta {
+  display: none;
+}
+
 .hero-inner h1 {
   margin: 0.4rem 0 1rem;
   font-size: clamp(2rem, 4vw, 2.8rem);
@@ -296,6 +300,35 @@ body.no-scroll { overflow: hidden; }
   }
 
   .split-2 { grid-template-columns: 1fr; }
+
+  .floating-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem calc(0.6rem + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.94);
+    border-top: 1px solid #d5e3fa;
+    box-shadow: 0 -10px 20px rgba(13, 33, 74, 0.06);
+    z-index: 50;
+  }
+
+  .floating-cta .btn {
+    flex: 1;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .floating-cta .btn:first-child {
+    order: 2;
+  }
+
+  body {
+    padding-bottom: 4.5rem;
+  }
 
   .hero,
   .section {
