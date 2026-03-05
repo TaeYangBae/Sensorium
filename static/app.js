@@ -118,9 +118,14 @@
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
-      const message = `${data.company} / ${data.name} 님\n` +
-        `${data.email}\n\n${data.message}`;
-      alert(`상담 신청이 접수되었습니다.\n\n${message}`);
+      const subject = encodeURIComponent('센서리움 상담 요청');
+      const body = encodeURIComponent(
+        `회사명: ${data.company}\n` +
+        `담당자: ${data.name}\n` +
+        `이메일: ${data.email}\n\n` +
+        `문의 내용:\n${data.message}`
+      );
+      window.location.href = `mailto:info@sensorium.co.kr?subject=${subject}&body=${body}`;
       form.reset();
       closeModal();
     });
