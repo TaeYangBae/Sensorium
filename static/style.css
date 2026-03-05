@@ -1406,3 +1406,115 @@ select {
     grid-template-columns: 1fr;
   }
 }
+
+/* Production-ready polish */
+:root {
+  --focus-ring: 2px solid #1ab0ff;
+  --lift-shadow: 0 12px 28px rgba(15, 34, 67, 0.14);
+}
+
+html.reduced-motion *,
+html.reduced-motion *::before,
+html.reduced-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+#scrollProgress {
+  --scroll-progress: 0;
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(26, 176, 255, 0.25), #1ab0ff);
+  transform-origin: left center;
+  transform: scaleX(var(--scroll-progress));
+  z-index: 170;
+  pointer-events: none;
+}
+
+#scrollProgress::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(13, 86, 199, 0), #0d56c7 90%);
+}
+
+.top_scroll {
+  opacity: 0.2;
+  transform: translateY(4px);
+}
+
+.top_scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#quick_popup_wrap {
+  gap: 10px;
+}
+
+#quick_popup_wrap .list_wrap {
+  gap: 10px;
+}
+
+#quick_popup_wrap button,
+#quick_popup_wrap a {
+  position: relative;
+  overflow: hidden;
+}
+
+#quick_popup_wrap button::before,
+#quick_popup_wrap a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+#quick_popup_wrap button:hover::before,
+#quick_popup_wrap a:hover::before,
+#quick_popup_wrap button:focus-visible::before,
+#quick_popup_wrap a:focus-visible::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.2, 0.65, 0.3, 1), transform 0.65s cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+.popup_form_wrap .form {
+  border: 1px solid #d4e1f4;
+  box-shadow: var(--lift-shadow);
+  border-radius: 16px;
+}
+
+.popup_form_wrap .form_field .input,
+.popup_form_wrap .form_field .input textarea,
+.popup_form_wrap .form_field .input input {
+  border-radius: 10px;
+}
+
+.popup_form_wrap .form_field .input textarea:focus,
+.popup_form_wrap .form_field .input input:focus {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.popup_form_wrap .submit_btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}

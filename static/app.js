@@ -633,3 +633,150 @@
 
   boot();
 })();
+
+(() => {
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const setMotionClass = () => {
+    document.documentElement.classList.toggle('reduced-motion', motionPreference.matches);
+  };
+
+  const ensureFooterYear = () => {
+    $$('.foot_wrap .copy, footer .copy').forEach((node) => {
+      const currentYear = new Date().getFullYear();
+      node.textContent = `copyright(c)${currentYear} SENSORIUM all right reserved.`;
+    });
+  };
+
+  const initScrollProgress = () => {
+    if (document.getElementById('scrollProgress')) return;
+    const bar = document.createElement('div');
+    const topButton = $('[data-scroll-top]');
+
+    bar.id = 'scrollProgress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+
+    let rafId = 0;
+    const update = () => {
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const ratio = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+      bar.style.setProperty('--scroll-progress', ratio.toFixed(4));
+      if (topButton) {
+        topButton.classList.toggle('is-visible', ratio > 0.04);
+      }
+      rafId = 0;
+    };
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  };
+
+  const initAnchorSmooth = () => {
+    $$('a[href^="#"]').forEach((link) => {
+      const hash = link.getAttribute('href');
+      if (!hash || hash === '#') return;
+      const target = $(hash);
+      if (!target) return;
+
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        target.scrollIntoView({ behavior: motionPreference.matches ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+  };
+
+  const initImageAndLinkHardening = () => {
+    $$('img').forEach((img, index) => {
+      if (!img.hasAttribute('loading')) {
+        img.loading = index < 2 ? 'eager' : 'lazy';
+      }
+      if (!img.hasAttribute('decoding')) {
+        img.decoding = 'async';
+      }
+      if (!img.hasAttribute('alt')) {
+        img.setAttribute('alt', '');
+      }
+      if (index < 2 && !img.hasAttribute('fetchpriority')) {
+        img.fetchPriority = 'high';
+      }
+    });
+
+    $$('a[href^=\"mailto:\"], a[href^=\"tel:\"]').forEach((link) => {
+      const href = link.getAttribute('href') || '';
+      if (href && !link.getAttribute('aria-label')) {
+        link.setAttribute('aria-label', `${link.textContent.trim() || href} ${href}`);
+      }
+    });
+  };
+
+  const initSectionReveal = () => {
+    const nodes = $$(
+      'section, .con03, .con04, .con05, .con06, .con08, .con0301, .news_slide_wrap, #footer, #contents > .split, #contents > .con'
+    );
+
+    if (!nodes.length) return;
+    nodes.forEach((node) => node.classList.add('reveal'));
+
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach((node) => node.classList.add('in-view'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -15% 0px', threshold: 0.12 }
+    );
+
+    nodes.forEach((node) => {
+      observer.observe(node);
+    });
+  };
+
+  const initA11y = () => {
+    const topButton = $('[data-scroll-top]');
+    if (topButton) {
+      topButton.setAttribute('type', 'button');
+    }
+
+    $$('.pc_navi a, .tm_nav a, .popup-close, #quick_popup_wrap button').forEach((el) => {
+      if (el.matches('.popup-close')) return;
+      if (!el.textContent.trim() && !el.getAttribute('aria-label')) {
+        el.setAttribute('aria-label', el.getAttribute('title') || '링크');
+      }
+    });
+  };
+
+  const bootEnhanced = () => {
+    if ('addEventListener' in motionPreference) {
+      motionPreference.addEventListener('change', setMotionClass);
+    }
+
+    setMotionClass();
+    ensureFooterYear();
+    initScrollProgress();
+    initAnchorSmooth();
+    initImageAndLinkHardening();
+    initSectionReveal();
+    initA11y();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootEnhanced, { once: true });
+  } else {
+    bootEnhanced();
+  }
+})();
