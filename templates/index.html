@@ -1,590 +1,233 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<!doctype html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-  <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0" />
-
-  <meta name="naver-site-verification" content="19506b9cc468224ccccec4ab7d183b6048ea908c" />
-  <meta name="Keywords" content="sensorium" />
-  <meta name="Description" content="http://www.sensorium.co.kr/" />
-  <meta name="Author" content="DESIGNPIXEL" />
-  <meta name="Copyright" content="(c)DESIGNPIXEL" />
-  <meta name="publisher" content="DESIGNPIXEL HONG" />
-
-  <meta property="og:title" content="센서리움" />
-  <meta property="og:url" content="https://sensorium.co.kr" />
-  <meta property="og:site_name" content="SENSORIUM" />
-  <meta property="og:description" content="센서리움 통합 홈페이지" />
-  <meta property="og:image" content="https://www.sensorium.co.kr/data/seo/file1_17636113981gbae1g4j5.png" />
-
-  <title>sensorium</title>
-
-  <!-- Google Analytics / Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PM97NCFP');</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11022550686"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments)}
-    gtag('js', new Date());
-    gtag('config', 'AW-11022550686');
-    gtag('event', 'conversion', {'send_to': 'AW-11022550686/VOEVCMammoUYEJ6N-4cp'});
-  </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158361827-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtagLegacy(){dataLayer.push(arguments)}
-    gtagLegacy('js', new Date());
-    gtagLegacy('config', 'UA-158361827-1');
-  </script>
-
-  <link rel="stylesheet" type="text/css" href="/static/style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="센서리움 랜딩 페이지 - 파트너, 솔루션, 문의, 블로그, 페이스북, 고객센터 안내" />
+  <title>SENSORIUM | 센서 기반 운영 혁신 파트너</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PM97NCFP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div id="overlay" aria-hidden="true"></div>
 
-  <div id="bg"></div>
+  <a class="skip-link" href="#mainContent">본문으로 바로가기</a>
 
-  <div id="quick_popup_wrap" class="view_quick_popup">
-    <ul class="list_wrap">
-      <li class="top">
-        <button type="button" class="top_scroll" data-scroll-top>TOP</button>
-      </li>
-      <li class="kakao pbr">
-        <a href="http://pf.kakao.com/_dWwrT" target="_blank">센서리움 플러스 친구 추가</a>
-      </li>
-      <li class="inquiry_banner pbr">
-        <button type="button" data-open="inquiryModal">문의하기</button>
-      </li>
-      <li class="newsletter_banner pbr">
-        <button type="button" data-open="newsletterModal">뉴스레터 구독하기</button>
-      </li>
-    </ul>
-  </div>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#hero" aria-label="센서리움 홈">
+        <img src="https://www.sensorium.co.kr/img/common/foot_logo.png" alt="센서리움 로고" />
+      </a>
 
-  <div class="overlay" id="overlay" aria-hidden="true"></div>
+      <button id="menuButton" class="menu-toggle" aria-expanded="false" aria-controls="primaryNav">
+        메뉴
+      </button>
 
-  <div id="zoomModal" class="popup_form_wrap" role="dialog" aria-modal="true" aria-label="zoom 미팅 신청" aria-hidden="true" tabindex="-1">
-    <div class="form">
-      <p class="blind">zoom을 이용한 온라인 미팅신청</p>
-      <button type="button" class="popup_close popup-close" aria-label="닫기">×</button>
-      <form name="zoomRequestForm" id="zoomRequestForm" method="post" action="" onsubmit="return false;">
-        <div class="title_wrap">
-          <p class="title_txt"><span>zoom을 이용한</span><strong> 온라인 미팅 신청</strong></p>
-        </div>
-        <div class="form_field">
-          <div class="form_item">
-            <label for="z_company">회사명</label>
-            <div class="input"><input name="r_corpname" type="text" id="z_company" class="form_value" required /></div>
-          </div>
-          <div class="form_item">
-            <label for="z_name">성함</label>
-            <div class="input"><input name="r_name" type="text" id="z_name" class="form_value" required /></div>
-          </div>
-          <div class="form_item">
-            <label for="z_title">직함</label>
-            <div class="input"><input name="r_position" type="text" id="z_title" class="form_value" /></div>
-          </div>
-          <div class="form_item">
-            <label for="z_tel">연락처</label>
-            <div class="input"><input name="r_tel" type="text" id="z_tel" class="form_value" required /></div>
-          </div>
-          <div class="form_item">
-            <label for="z_date">회의 가능 시간</label>
-            <div class="input date_picker">
-              <input type="text" name="r_date" id="z_date" class="i_date" placeholder="2026-03-01" required readonly />
-              <span class="item">-</span>
-              <input type="text" name="r_time" id="z_time" class="i_time" placeholder="14:00" required readonly />
-            </div>
-          </div>
-          <div class="form_item">
-            <label for="z_textarea">회의내용요청</label>
-            <div class="input"><textarea name="r_content" id="z_textarea" class="form_value"></textarea></div>
-          </div>
-        </div>
-        <div class="privacy_field">
-          <div class="check_box"><input type="checkbox" id="z_privacy_check" class="privacy_check" required /><label for="z_privacy_check">개인정보보호정책에 동의합니다. (필수)</label></div>
-        </div>
-        <button type="submit" class="submit_btn">구독하기</button>
-      </form>
-    </div>
-  </div>
-
-  <div id="inquiryModal" class="popup_form_wrap" role="dialog" aria-modal="true" aria-label="문의하기" aria-hidden="true" tabindex="-1">
-    <div class="form">
-      <p class="blind">문의하기</p>
-      <button type="button" class="popup_close popup-close" aria-label="닫기">×</button>
-      <form name="inquiryForm" id="inquiryForm" method="post" action="/inquiry_ok.php" onsubmit="return false;">
-        <div class="title_wrap">
-          <h3 class="form_title">문의하기</h3>
-          <p class="title_txt">센서리움에 문의하실 내용을 입력해 주세요.</p>
-        </div>
-        <div class="form_field">
-          <div class="form_item"><label for="i_company">회사명</label><div class="input"><input name="r_corpname" type="text" id="i_company" class="form_value" required /></div></div>
-          <div class="form_item"><label for="i_name">성함</label><div class="input"><input name="r_name" type="text" id="i_name" class="form_value" required /></div></div>
-          <div class="form_item"><label for="i_title">직함</label><div class="input"><input name="r_position" type="text" id="i_title" class="form_value" /></div></div>
-          <div class="form_item"><label for="i_tel">연락처</label><div class="input"><input name="r_tel" type="text" id="i_tel" class="form_value" required /></div></div>
-          <div class="form_item"><label for="i_date">통화가능시간</label><div class="input date_picker"><input type="text" name="r_date" id="i_date" class="i_date" placeholder="2026-03-01" required readonly /><span class="item">-</span><input type="text" name="r_time" id="i_time" class="i_time" placeholder="10:00" required readonly /></div></div>
-          <div class="form_item"><label for="i_textarea">문의내용</label><div class="input"><textarea name="r_content" id="i_textarea" class="form_value" required></textarea></div></div>
-        </div>
-        <div class="privacy_field"><div class="check_box"><input type="checkbox" id="i_privacy_check" class="privacy_check" required /><label for="i_privacy_check">개인정보보호정책에 동의합니다. (필수)</label></div></div>
-        <button type="submit" class="submit_btn">문의하기</button>
-      </form>
-    </div>
-  </div>
-
-  <div id="newsletterModal" class="popup_form_wrap" role="dialog" aria-modal="true" aria-label="뉴스레터 구독" aria-hidden="true" tabindex="-1">
-    <div class="form">
-      <p class="blind">뉴스레터 구독하기</p>
-      <button type="button" class="popup_close popup-close" aria-label="닫기">×</button>
-      <form id="newsletterForm" onsubmit="return false;">
-        <h3 class="form_title">구독신청</h3>
-        <div class="form_field">
-          <div class="form_item"><label for="n_name">이름</label><div class="input"><input name="r_name" type="text" id="n_name" class="form_value" required /></div></div>
-          <div class="form_item"><label for="n_email1">이메일</label><div class="input date_picker"><input name="r_email1" type="text" id="n_email1" class="i_date" required /><span class="item">@</span><input name="r_email2" type="text" id="n_email2" class="i_time" required /></div></div>
-          <div class="form_item"><label for="n_company">회사명</label><div class="input"><input name="r_add" type="text" id="n_company" class="form_value" /></div></div>
-        </div>
-        <div class="privacy_field">
-          <div class="check_box"><input type="checkbox" id="n_privacy_check" class="privacy_check" required /><label for="n_privacy_check">개인정보 처리방침 및 이용동의 (필수)</label></div>
-        </div>
-        <button type="submit" class="submit_btn">구독하기</button>
-      </form>
-    </div>
-  </div>
-
-  <div id="wrap">
-    <ul class="blind">
-      <li><a href="#contents">본문 바로가기(Skip Contents)</a></li>
-    </ul>
-
-    <header id="header" class="motion">
-      <div class="head_top pbr">
-        <h1><a href="/"><img src="https://www.sensorium.co.kr/img/common/logo.png" alt="SENSORium" /></a></h1>
-        <ul>
-          <li class="en"><a href="/">HOME</a></li>
-          <li class="en"><a href="/m15.php">Contact us</a></li>
-          <li class="en"><a href="/sitemap.php">sitemap</a></li>
-          <li class="en"><a href="https://blog.naver.com/rebecca_sr" target="_blank">BLOG</a></li>
-          <li class="en"><a href="https://www.facebook.com/sensoriumkorea/" target="_blank">FACEBOOK</a></li>
-          <li class="en"><a href="https://www.linkedin.com/company/sensoriumkorea/" target="_blank">LINKED IN</a></li>
-        </ul>
-
-        <a href="http://pf.kakao.com/_dWwrT" target="_blank" class="header_kakao">센서리움 플러스 친구 추가하기</a>
-        <div class="contactInfo">
-          <dl><dt>TEL</dt><dd>031-795-5077</dd></dl>
-          <dl><dt>FAX</dt><dd>031-790-1034</dd></dl>
-          <dl><dt>E-MAIL</dt><dd>info@sensorium.co.kr</dd></dl>
-        </div>
-      </div>
-
-      <nav class="pbr pc_navi">
-        <div class="submenu"></div>
-        <ul>
-          <li class="en has-sub"><span class="line"></span>
-            <a href="/m11.php">회사소개</a>
-            <div class="sub_menu first">
-              <ul>
-                <li><a href="/m11.php">기업개요</a></li>
-                <li><a href="/m12.php">연혁</a></li>
-                <li><a href="/m15.php">찾아오시는 길</a></li>
-                <li><a href="/m17.php">채용</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="en has-sub"><span class="line"></span>
-            <a href="/m14.php">파트너사</a>
-            <div class="sub_menu first">
-              <ul>
-                <li><a href="/m14.php">파트너사 소개</a></li>
-                <li><a href="/board/board.php?bo_table=products&cate=제품별%20다운로드">자료실</a></li>
-                <li><a href="/board/board.php?bo_table=media">미디어</a></li>
-                <li><a href="https://asia.beasensors.com/en/thermotool/" target="_blank" rel="noreferrer">에너지 세이빙</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="en has-sub"><span class="line"></span>
-            <a href="/board/board.php?bo_table=business&code=005">솔루션</a>
-            <div class="sub_menu">
-              <ul>
-                <li><a href="/board/board.php?bo_table=business&code=005">스마트 주차 시스템</a></li>
-                <li><a href="/board/board.php?bo_table=business&code=006">스마트 도로 교통</a></li>
-                <li><a href="/board/board.php?bo_table=business&code=007">중대재해처벌법 방지 솔루션</a></li>
-                <li><a href="/board/board.php?bo_table=business&code=008">스마트 교차로 시스템</a></li>
-                <li><a href="/board/board.php?bo_table=business&code=010">피플카운팅</a></li>
-                <li><a href="/board/board.php?bo_table=business&code=003">대중 교통 안전 솔루션</a></li>
-                <li><a href="/board/board.php?bo_table=business&code=009">인터랙티브 터치 솔루션</a></li>
-                <li><a href="/board/board.php?bo_table=business&code=002">보안</a></li>
-                <li><a href="/board/board.php?bo_table=business&code=001">입출입 감지</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="en has-sub"><span class="line"></span>
-            <a href="/board/board.php?bo_table=reference&code=&code2=#pos">설치사진</a>
-            <div class="sub_menu"><ul><li><a href="/board/board.php?bo_table=reference&code=&code2=#pos">설치사진</a></li></ul></div>
-          </li>
-          <li class="en has-sub"><span class="line"></span>
-            <a href="/board/board.php?bo_table=notice">홍보실</a>
-            <div class="sub_menu first">
-              <ul>
-                <li><a href="/board/board.php?bo_table=notice">언론홍보</a></li>
-                <li><a href="/board/board.php?bo_table=products&cate=제품별%20다운로드">자료실</a></li>
-                <li><a href="/board/board.php?bo_table=media">미디어</a></li>
-                <li><a href="/board/board.php?bo_table=newsletter">뉴스레터</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="en has-sub"><span class="line"></span>
-            <a href="https://pf.kakao.com/_dWwrT" target="_blank">고객지원</a>
-            <div class="sub_menu first"><ul><li><a href="https://pf.kakao.com/_dWwrT" target="_blank">고객지원</a></li></ul></div>
-          </li>
-        </ul>
-        <div class="gnb_search">
-          <form name="productSearchForm" method="get" action="/search.php">
-            <input type="search" name="productKeyword" value="" placeholder="검색어 입력" />
-            <button>검색하기</button>
-          </form>
-        </div>
+      <nav id="primaryNav" class="nav" aria-label="주요 메뉴">
+        <a href="#partners">파트너사 소개</a>
+        <a href="#solutions">자사 솔루션</a>
+        <a href="#inquiry">문의</a>
+        <a href="#blog">블로그</a>
+        <a href="#social">페이스북</a>
+        <a href="#support">고객센터</a>
       </nav>
 
-      <div class="head_top tm_nav">
-        <h1><a href="/"><img src="https://www.sensorium.co.kr/img/common/logo.png" alt="SENSORIUM" /></a></h1>
-        <button type="button" class="nav_btn" aria-expanded="false" aria-controls="mobileNavi" aria-label="메뉴 열기">
-          <div class="menu-trigger" >
-            <span class="n1"></span>
-            <span class="n2"></span>
-            <span class="n3"></span>
-          </div>
-        </button>
-      </div>
-      <nav class="tm_nav" id="mobileNavi" aria-label="모바일 내비게이션">
-        <div class="nav_search">
-          <div class="gnb_search">
-            <form name="productSearchForm" method="get" action="/search.php">
-              <input type="search" name="productKeyword" value="" placeholder="검색어 입력" />
-              <button>검색하기</button>
-            </form>
-          </div>
-        </div>
-        <dl>
-          <dt class="en uppercase" role="button" tabindex="0" aria-expanded="false">회사소개</dt>
-          <dd>
-            <p><a href="/m11.php">기업 개요</a></p>
-            <p><a href="/m12.php">연혁</a></p>
-            <p><a href="/m15.php">찾아오시는 길</a></p>
-            <p><a href="/m17.php">채용</a></p>
-          </dd>
-          <dt class="en uppercase" role="button" tabindex="0" aria-expanded="false">파트너사</dt>
-          <dd>
-            <p><a href="/m14.php">파트너사 소개</a></p>
-            <p><a href="/board/board.php?bo_table=products&cate=제품별%20다운로드">자료실</a></p>
-            <p><a href="/board/board.php?bo_table=media">미디어</a></p>
-            <p><a href="https://asia.beasensors.com/en/thermotool/" target="_blank" rel="noreferrer">에너지 세이빙</a></p>
-          </dd>
-          <dt class="en  uppercase" role="button" tabindex="0" aria-expanded="false">솔루션</dt>
-          <dd>
-            <p><a href="/board/board.php?bo_table=business&code=005">스마트 주차 시스템</a></p>
-            <p><a href="/board/board.php?bo_table=business&code=006">스마트 도로 교통</a></p>
-            <p><a href="/board/board.php?bo_table=business&code=007">중대재해처벌법 방지 솔루션</a></p>
-            <p><a href="/board/board.php?bo_table=business&code=008">스마트 교차로 시스템</a></p>
-            <p><a href="/board/board.php?bo_table=business&code=010">피플카운팅</a></p>
-            <p><a href="/board/board.php?bo_table=business&code=003">대중 교통 안전 솔루션</a></p>
-            <p><a href="/board/board.php?bo_table=business&code=009">인터랙티브 터치 솔루션</a></p>
-            <p><a href="/board/board.php?bo_table=business&code=002">보안</a></p>
-            <p><a href="/board/board.php?bo_table=business&code=001">입출입 감지</a></p>
-          </dd>
-          <dt class="en uppercase" role="button" tabindex="0" aria-expanded="false">설치사진</dt>
-          <dd><p><a href="/board/board.php?bo_table=reference&code=&code2=#pos">설치사진</a></p></dd>
-          <dt class="en  uppercase" role="button" tabindex="0" aria-expanded="false">홍보실</dt>
-          <dd>
-            <p><a href="/board/board.php?bo_table=notice">언론홍보</a></p>
-            <p><a href="/board/board.php?bo_table=newsletter">뉴스레터</a></p>
-          </dd>
-          <dt class="en uppercase" role="button" tabindex="0" aria-expanded="false">고객지원</dt>
-          <dd><p><a href="https://pf.kakao.com/_dWwrT" target="_blank">고객지원</a></p></dd>
-        </dl>
-        <a href="http://pf.kakao.com/_dWwrT" target="_blank" class="header_kakao">센서리움 플러스 친구 추가하기</a>
-      </nav>
-    </header>
-
-    <div id="container">
-      <div id="contents">
-        <div class="main_slider ptbr" aria-label="메인 비주얼">
-          <ul class="bxslider" id="heroSlider">
-            <li class="main_s">
-              <a href="/board/board.php?bo_table=business&code=007#section8" target="_blank"><img src="https://www.sensorium.co.kr/data/main/file1_17194652315pf5hhq3m5.png" alt="Smart mobility" /></a>
-            </li>
-            <li class="main_s">
-              <a href="/board/board.php?bo_table=newsletter&idx=124" target="_blank"><img src="https://www.sensorium.co.kr/data/main/file1_1709108401r8ttebe525.png" alt="IoT sensor" /></a>
-            </li>
-            <li class="main_s">
-              <a href="/board/board.php?bo_table=business&code=007" target="_blank"><img src="https://www.sensorium.co.kr/data/main/file1_17194651881gqwibh465.png" alt="Factory safety" /></a>
-            </li>
-          </ul>
-          <ul class="slider_dots" id="heroDots"></ul>
-        </div>
-
-        <div class="main_slider mbr">
-          <ul class="bxslider">
-            <li class="main_s">
-              <a href="/board/board.php?bo_table=business&code=007#section8" target="_blank"><img src="https://www.sensorium.co.kr/data/main/file2_1719465231rfzwicrh5v.png" alt="스마트 솔루션" /></a>
-            </li>
-            <li class="main_s"><a href="/board/board.php?bo_table=newsletter&idx=124" target="_blank"><img src="https://www.sensorium.co.kr/data/main/file2_17194656846y5gxvbogw.png" alt="교차로" /></a></li>
-            <li class="main_s"><a href="/board/board.php?bo_table=business&code=007" target="_blank"><img src="https://www.sensorium.co.kr/data/main/file2_1719465188ack3jpnbbr.png" alt="안전" /></a></li>
-          </ul>
-        </div>
-
-        <section class="con con02">
-          <h3 class="en main_title bold">센서리움 소개</h3>
-          <p>
-            센서리움은 영국 HALMA GROUP 계열사 벨기에 BEA의 한국 독점 에이전트입니다. 보행자용·산업용 센서 외에도 AI 시대에 맞춰 다양한 솔루션을 제공하며,
-            사용자 편의와 안전성 향상을 위한 연구 개발을 수행합니다.
-          </p>
-        </section>
-
-        <section class="con con03">
-          <h3 class="en main_title">솔루션</h3>
-          <div class="con03_con">
-            <div class="text en"><span>WE CREATE</span><br /><span>PEACE OF</span><br /><span>MIND</span></div>
-            <ul>
-              <li>
-                <a href="/board/board.php?bo_table=business&code=005">
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/con03_con_img05.jpg" alt="" class="business_img"/></div>
-                  <div class="text"><h5 class="en uppercase">business</h5><h3>스마트<br />주차시스템</h3></div>
-                </a>
-              </li>
-              <li>
-                <a href="/board/board.php?bo_table=business&code=006">
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/con03_con_img06.jpg" alt="" class="business_img"/></div>
-                  <div class="text"><h5 class="en uppercase">business</h5><h3>스마트<br />도로교통</h3></div>
-                </a>
-              </li>
-              <li>
-                <a href="/board/board.php?bo_table=business&code=007">
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/con03_con_img07.jpg" alt="" class="business_img"/></div>
-                  <div class="text"><h5 class="en uppercase">business</h5><h3>중대재해처벌법<br />방지 시스템</h3></div>
-                </a>
-              </li>
-              <li>
-                <a href="/board/board.php?bo_table=business&code=008">
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/con03_con_img08.jpg" alt="" class="business_img"/></div>
-                  <div class="text"><h5 class="en uppercase">business</h5><h3>스마트<br />교차로 시스템</h3></div>
-                </a>
-              </li>
-              <li>
-                <a href="/board/board.php?bo_table=business&code=010">
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/con03_con_img04.jpg" alt="" class="business_img"/></div>
-                  <div class="text"><h5 class="en uppercase">business</h5><h3>피플카운팅</h3></div>
-                </a>
-              </li>
-              <li>
-                <a href="/board/board.php?bo_table=business&code=003">
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/con03_con_img03.jpg" alt="" class="business_img"/></div>
-                  <div class="text"><h5 class="en uppercase">business</h5><h3>대중 교통<br />안전 솔루션</h3></div>
-                </a>
-              </li>
-              <li>
-                <a href="/board/board.php?bo_table=business&code=009">
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/con03_con_img09.jpg" alt="" class="business_img"/></div>
-                  <div class="text"><h5 class="en uppercase">business</h5><h3>인터랙티브<br />터치솔루션</h3></div>
-                </a>
-              </li>
-              <li>
-                <a href="/board/board.php?bo_table=business&code=002">
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/con03_con_img02.jpg" alt="" class="business_img"/></div>
-                  <div class="text"><h5 class="en uppercase">business</h5><h3>보안</h3></div>
-                </a>
-              </li>
-              <li>
-                <a href="/board/board.php?bo_table=business&code=001">
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/con03_con_img01.jpg" alt="" class="business_img"/></div>
-                  <div class="text"><h5 class="en uppercase">business</h5><h3>입출입 감지</h3></div>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="con con08">
-          <div class="inner">
-            <h3 class="en main_title bold">파트너사</h3>
-            <div class="conwrap">
-              <div class="swiper-container customer" id="partnerTrack" role="region" aria-label="센서리움 파트너사 롤링" tabindex="0">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide"><div class="logo"><span>TESLA</span></div><div class="company">테슬라</div><dl><dt class="pdt">CONDOR</dt><dd class="use">차량 감지</dd></dl></div>
-                  <div class="swiper-slide"><div class="logo"><span>롯데</span></div><div class="company">롯데 백화점</div><dl><dt class="pdt">FLATSCAN-RS510-S</dt><dd class="use">주차장 높이 제한</dd></dl></div></div>
-                  <div class="swiper-slide"><div class="logo"><span>동원</span></div><div class="company">동원</div><dl><dt class="pdt">FALCON</dt><dd class="use">지게차 감지</dd></dl></div></div>
-                  <div class="swiper-slide"><div class="logo"><span>모나리자</span></div><div class="company">모나리자</div><dl><dt class="pdt">FALCON</dt><dd class="use">지게차 감지</dd></dl></div></div>
-                  <div class="swiper-slide"><div class="logo"><span>쿠팡</span></div><div class="company">쿠팡</div><dl><dt class="pdt">FLATSCAN-RS510-S</dt><dd class="use">높이 제한</dd></dl></div></div>
-                  <div class="swiper-slide"><div class="logo"><span>LG</span></div><div class="company">LG전자</div><dl><dt class="pdt">LZR-TK25</dt><dd class="use">높이 제한</dd></dl></div></div>
-                  <div class="swiper-slide"><div class="logo"><span>서울시</span></div><div class="company">서울시</div><dl><dt class="pdt">SIGMA</dt><dd class="use">피플 카운팅</dd></dl></div></div>
-                  <div class="swiper-slide"><div class="logo"><span>이마트</span></div><div class="company">이마트</div><dl><dt class="pdt">CONDOR J</dt><dd class="use">차량 카운팅</dd></dl></div></div>
-                </div>
-              </div>
-              <div class="ctr">
-                <button type="button" class="con8prev btn" aria-label="이전 파트너" data-carousel-prev="partnerTrack">◀</button>
-                <button type="button" class="con8next btn" aria-label="다음 파트너" data-carousel-next="partnerTrack">▶</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="con con02_1">
-          <div class="inner">
-            <h3 class="en main_title bold">뉴스레터</h3>
-            <p>2주마다 센서리움의 아이디어와 솔루션을 이메일로 받아보세요.</p>
-            <button class="newsletter_banner" type="button" data-open="newsletterModal">구독신청</button>
-
-            <div class="news_slide_wrap swiper-container" id="newsSection">
-              <div class="swiper-wrapper" id="newsletterTrack" aria-label="최신 뉴스레터" >
-                <div class="slide swiper-slide">
-                  <a href="/board/board.php?bo_table=newsletter&idx=251">
-                    <div class="img" style="background-image:url('https://www.sensorium.co.kr/data/board/newsletter/file1_1770276100xb1gqnftk4.png')"></div>
-                    <div class="tit"><p class="e_">[센서리움] 귀사의 공장 교차로, 정말 '안전'합니까?</p></div>
-                  </a>
-                </div>
-                <div class="slide swiper-slide">
-                  <a href="/board/board.php?bo_table=newsletter&idx=250">
-                    <div class="img" style="background-image:url('https://www.sensorium.co.kr/data/board/newsletter/file1_1768969292an6yqfiwj4.png')"></div>
-                    <div class="tit"><p class="e_">[센서리움] 거리두기 운영은 문 앞에서부터 시작됩니다.</p></div>
-                  </a>
-                </div>
-                <div class="slide swiper-slide">
-                  <a href="/board/board.php?bo_table=newsletter&idx=249">
-                    <div class="img" style="background-image:url('https://www.sensorium.co.kr/data/board/newsletter/file1_1768888203mo85z4gha7.png')"></div>
-                    <div class="tit"><p class="e_">[센서리움] 높이제한센서, 현장 적용 가이드</p></div>
-                  </a>
-                </div>
-              </div>
-              <div class="slide_navigation">
-                <button type="button" class="arrow swiper-button-prev" data-carousel-prev="newsletterTrack" aria-label="이전 뉴스레터"></button>
-                <button type="button" class="arrow swiper-button-next" data-carousel-next="newsletterTrack" aria-label="다음 뉴스레터"></button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-        <section class="con con05 ptbr">
-          <h3 class="en main_title">솔루션</h3>
-          <ul>
-            <li>
-              <a href="http://laser.sensorium.co.kr/" target="_blank">
-                <div class="img"><img src="https://www.sensorium.co.kr/img/main/solution01.png" alt="센서 기술" class="solution_img"/></div>
-                <div class="text"><h3 class="en">SENSOR<br />TECHNOLOGY </h3><p>센서 기술 바로가기</p></div>
-              </a>
-            </li>
-            <li>
-              <a href="http://its.sensorium.co.kr/" target="_blank">
-                <div class="img"><img src="https://www.sensorium.co.kr/img/main/solution02.png" alt="ITS" class="solution_img"/></div>
-                <div class="text"><h3 class="en">ITS SOLUTION</h3><p>스마트 교통 시스템 솔루션</p></div>
-              </a>
-            </li>
-            <li>
-              <a href="http://pcs.sensorium.co.kr/" target="_blank">
-                <div class="img"><img src="https://www.sensorium.co.kr/img/main/solution03.png" alt="People counting" class="solution_img"/></div>
-                <div class="text"><h3 class="en">PEOPLE COUNTING<br />SOLUTION </h3><p>피플카운팅 솔루션</p></div>
-              </a>
-            </li>
-          </ul>
-        </section>
-
-        <section class="con con06">
-          <h3 class="en main_title">고객센터</h3>
-          <div class="lr_wrap">
-            <div class="left">
-              <div class="notice notice01">
-                <div class="notice_top"></div>
-                <div class="notice_bottom">
-                  <ul>
-                    <li>
-                      <a href="/board/board.php?bo_table=notice&idx=74" class="ellipsis">센서리움, 신월여의지하도로에 AI 기반 이중 센서 구축</a>
-                      <span class="date">2026-01-21</span>
-                    </li>
-                    <li>
-                      <a href="/board/board.php?bo_table=notice&idx=73" class="ellipsis">센서리움, 지능형 무인 운반 솔루션 ‘LZR-VISIOSCAN RD’ 선보여</a>
-                      <span class="date">2026-01-21</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="notice notice02">
-                <div class="notice_top">
-                  <div class="img ptbr_i"><img src="https://www.sensorium.co.kr/img/main/main_notice.png" alt="" onerror="this.style.display='none'" /></div>
-                  <div class="text">
-                    <h3 class="ellipsis"><a href="#">센서리움 홈페이지가 새롭게 오픈하였습니다.</a></h3>
-                    <p class="ellipsis2">사용자 환경과 안전성 중심으로 사이트를 새롭게 선보입니다.</p>
-                    <div class="more">
-                      <a href="/m51.php" class="en uppercase">More view</a>
-                      <span class="date">2017-04-10</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="notice_bottom">
-                  <ul>
-                    <li><a href="#" class="ellipsis">센서리움에서 새로운 가족을 기다리고 있습니다</a><span class="date">2017-04-10</span></li>
-                    <li><a href="#" class="ellipsis">채용과 협력 파트너 문의 안내</a><span class="date">2017-04-10</span></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="right">
-              <div class="left">
-                <div class="top">
-                  <h3 class="cc_title en">BEA WORLD WIDE</h3>
-                  <div class="img"><img src="https://www.sensorium.co.kr/img/main/bea.png" alt="" onerror="this.style.display='none'" /></div>
-                  <a href="https://asia.beasensors.com/en" target="_blank" class="en uppercase">More view</a>
-                </div>
-                <div class="bottom">
-                  <div class="left">
-                    <h3 class="cc_title en uppercase">facebook</h3>
-                    <div class="img"><img src="https://www.sensorium.co.kr/img/main/facebook.png" alt="" /></div>
-                    <a href="https://www.facebook.com/sensoriumkorea/" target="_blank" class="en uppercase">More view</a>
-                  </div>
-                  <div class="right">
-                    <h3 class="cc_title en uppercase">blog</h3>
-                    <div class="img"><img src="https://www.sensorium.co.kr/img/main/blog.png" alt="" /></div>
-                    <a href="http://blog.naver.com/rebecca_sr" target="_blank" class="en uppercase">More view</a>
-                  </div>
-                </div>
-              </div>
-              <div class="right">
-                <div>
-                  <h3 class="en uppercase">Product Support</h3>
-                  <p>센서리움의 다양한 자료를 확인할 수 있습니다.</p>
-                  <a href="/board/board.php?bo_table=products"><img src="https://www.sensorium.co.kr/img/main/main_contect01.png" alt="" /></a>
-                </div>
-                <div>
-                  <h3 class="en uppercase">Contact us</h3>
-                  <p>오시는 길을 확인해 주세요.</p>
-                  <a href="/m15.php"><img src="https://www.sensorium.co.kr/img/main/main_contect02.png" alt="" /></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+      <a class="quick-contact" href="tel:031-795-5077">고객센터 031-795-5077</a>
     </div>
+  </header>
 
-    <footer id="footer">
-      <div class="foot_wrap">
-        <div class="foot">
-          <div class="foot_01"><h2><a href="/index.php"><img src="https://www.sensorium.co.kr/img/common/foot_logo.png" alt="SENSORIUM" /></a></h2></div>
-          <div class="foot_02">
-            <div class="address en">
-              <address>
-                Rm 650, 651 ITECO, Jojung-daero 150, Hanam-si, Gyeonggi-do, KOREA | TEL:+82-31-795-5077 | FAX:+82-31-790-1034 | E-mail:info@sensorium.co.kr<br />
-                <span class="copy">copyright(c)2017 SENSORIUM all right reserved.</span>
-              </address>
-            </div>
-          </div>
+  <main id="mainContent">
+    <section id="hero" class="hero section-surface">
+      <div class="container hero-inner">
+        <p class="eyebrow">센서리움</p>
+        <h1>센서 기반 운영을 스마트하게. 설비 안정성과 비용 효율을 동시에</h1>
+        <p>
+          센서리움은 현장 데이터 기반으로 가동률, 에너지, 유지보수까지 한 번에 봅니다.
+          보고서 작성과 경보 대응 시간을 줄이고, 운영 리스크를 낮추는 데 초점을 둡니다.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#inquiry">무료 상담 신청</a>
+          <a class="btn btn-secondary" href="#solutions">솔루션 확인</a>
         </div>
       </div>
-    </footer>
+    </section>
+
+    <section id="partners" class="section reveal">
+      <div class="container section-inner">
+        <div class="section-head">
+          <h2>파트너사 소개</h2>
+          <p>센서리움은 검증된 파트너와 함께 실무형 프로젝트를 운영합니다.</p>
+        </div>
+        <div class="cards-grid">
+          <article class="card">
+            <h3>산업 자동화 파트너</h3>
+            <p>설비 제어·가동률 개선·안전 관련 프로젝트에서 실제 가동 데이터를 함께 운영합니다.</p>
+          </article>
+          <article class="card">
+            <h3>데이터 플랫폼 파트너</h3>
+            <p>수집부터 정제, 분석, 시각화까지 한 번에 운영 가능한 데이터 파이프라인을 제공합니다.</p>
+          </article>
+          <article class="card">
+            <h3>현장 운영 파트너</h3>
+            <p>정기 점검 체계와 A/S 역량을 연계해 장애 대응 속도와 가동 신뢰성을 높입니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="solutions" class="section section-surface reveal">
+      <div class="container section-inner">
+        <div class="section-head">
+          <h2>자사 솔루션 소개</h2>
+          <p>측정·전달·판단·조치가 한 흐름으로 동작하는 실무형 운영 체계를 제공합니다.</p>
+        </div>
+        <div class="cards-grid cards-grid-3">
+          <article class="card">
+            <h3>실시간 모니터링</h3>
+            <p>센서 상태를 즉시 확인하고 임계치 초과 시 알림과 대응 절차를 바로 실행할 수 있습니다.</p>
+          </article>
+          <article class="card">
+            <h3>에너지 관리</h3>
+            <p>사용량 패턴, 피크존, 설비 효율을 분석해 절감 포인트와 운영 개선안을 제안합니다.</p>
+          </article>
+          <article class="card">
+            <h3>운영 대시보드</h3>
+            <p>팀권한, 알림 규칙, 월간 리포트를 사전 템플릿으로 설정해 운영 리드타임을 단축합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="inquiry" class="section reveal">
+      <div class="container section-inner split-2">
+        <div>
+          <h2>문의</h2>
+          <p>도입 조건, 데모, 운영 절차, 견적 요청까지 한 번에 접수할 수 있습니다.</p>
+          <ul class="info-list">
+            <li><strong>운영 지원 시간:</strong> 평일 09:00~18:00</li>
+            <li><strong>답변 원칙:</strong> 영업일 기준 24시간 내 회신</li>
+            <li><strong>지원 방식:</strong> 방문/원격 상담 모두 가능</li>
+          </ul>
+          <button class="btn btn-primary" data-open="inquiryModal">상담 요청하기</button>
+        </div>
+
+        <div class="inquiry-highlights">
+          <article class="card">
+            <h3>도입 전 체크</h3>
+            <p>운영 대상, 센서 종류, 연동 범위를 기준으로 1~2시간 내 진단 범위를 정의합니다.</p>
+          </article>
+          <article class="card">
+            <h3>제안서 발송</h3>
+            <p>요구사항에 맞는 범위를 산정하고 일정·비용·구축 범위를 포함한 제안서를 제공합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="blog" class="section section-surface reveal">
+      <div class="container section-inner">
+        <div class="section-head">
+          <h2>블로그</h2>
+          <p>실전 현장 노하우와 운영 인사이트를 정기적으로 공개합니다.</p>
+        </div>
+        <div class="cards-grid cards-grid-2">
+          <article class="post">
+            <h3><a href="https://www.sensorium.co.kr/board/board.php?bo_table=notice&wr_id=1">센서 데이터 기반 설비 고장 예측 운영 가이드</a></h3>
+            <p>감지 임계치 설정부터 알림 규칙 구성까지 바로 적용 가능한 운영 방식으로 정리했습니다.</p>
+          </article>
+          <article class="post">
+            <h3><a href="https://www.sensorium.co.kr/board/board.php?bo_table=notice&wr_id=2">에너지 비용 절감을 위한 계측 체계 점검 체크리스트</a></h3>
+            <p>계측 품질이 분석 정확도를 좌우하는 이유와 개선 포인트를 정리했습니다.</p>
+          </article>
+          <article class="post">
+            <h3><a href="https://www.sensorium.co.kr/board/board.php?bo_table=notice&wr_id=3">현장 점검 리포트 템플릿</a></h3>
+            <p>점검 항목, 이슈 우선순위, 개선 이력을 한 화면에서 정합성 있게 관리할 수 있습니다.</p>
+          </article>
+          <article class="post">
+            <h3><a href="https://www.sensorium.co.kr/board/board.php?bo_table=notice&wr_id=4">월간 운영 회의에서 자주 놓치는 지표</a></h3>
+            <p>운영회의에서 누락되기 쉬운 가동율, 처리시간, 경보빈도 항목을 함께 점검합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="social" class="section reveal">
+      <div class="container section-inner social-section">
+        <h2>Facebook</h2>
+        <p>최신 소식은 공식 페이스북 채널에서 확인하세요.</p>
+        <a class="btn btn-secondary" href="https://www.facebook.com/sensorium" target="_blank" rel="noopener noreferrer" aria-label="센서리움 공식 페이스북으로 이동">페이스북 페이지 바로가기</a>
+      </div>
+    </section>
+
+    <section id="support" class="section section-surface reveal">
+      <div class="container section-inner split-2">
+        <div>
+          <h2>고객센터</h2>
+          <p>운영/기술/계약 문의는 고객센터로 접수해주세요.</p>
+          <ul class="info-list">
+            <li><strong>전화:</strong> <a href="tel:031-795-5077">031-795-5077</a></li>
+            <li><strong>이메일:</strong> <a href="mailto:info@sensorium.co.kr">info@sensorium.co.kr</a></li>
+            <li><strong>운영 채널:</strong> 카카오톡/이메일/전화 동시 접수</li>
+          </ul>
+        </div>
+        <div>
+          <a class="btn btn-primary" href="mailto:info@sensorium.co.kr">이메일 문의</a>
+          <a class="btn btn-outline" href="tel:031-795-5077">클릭투콜</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> SENSORIUM. All rights reserved.</p>
+      <a href="#hero">맨 위로</a>
+    </div>
+  </footer>
+
+  <div id="inquiryModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="inquiryTitle">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close-modal aria-label="닫기">×</button>
+      <h2 id="inquiryTitle">상담 요청</h2>
+      <form id="inquiryForm" class="inquiry-form">
+        <label>
+          회사명 <span aria-hidden="true">*</span>
+          <input type="text" name="company" required />
+        </label>
+        <label>
+          담당자명 <span aria-hidden="true">*</span>
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          이메일 <span aria-hidden="true">*</span>
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          문의 내용 <span aria-hidden="true">*</span>
+          <textarea name="message" rows="4" required></textarea>
+        </label>
+        <label>
+          <input type="checkbox" name="agree" required />
+          개인정보 수집 및 이용 동의
+        </label>
+        <button class="btn btn-primary" type="submit">상담 신청</button>
+      </form>
+    </div>
   </div>
 
-  <script src="/static/app.js"></script>
+  <section class="container section" aria-label="운영 링크 모음">
+    <div class="section-inner">
+      <div>
+        <h2>운영 링크</h2>
+        <ul class="info-list">
+          <li><a href="https://www.sensorium.co.kr/">공식 홈페이지</a></li>
+          <li><a href="https://www.sensorium.co.kr/board/board.php?bo_table=notice">공지/뉴스</a></li>
+          <li><a href="https://www.sensorium.co.kr/board/board.php?bo_table=products">자료실/제품자료</a></li>
+          <li><a href="https://www.sensorium.co.kr/m15.php">오시는 길</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
 </body>
 </html>
