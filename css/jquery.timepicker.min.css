@@ -1,0 +1,33 @@
+.ui-timepicker-wrapper {
+  position: absolute;
+  z-index: 9999;
+  background: #fff;
+  border: 1px solid #ccd9ef;
+  border-radius: 8px;
+  box-shadow: 0 12px 26px rgba(3, 17, 44, 0.2);
+  padding: 0.4rem;
+}
+
+.ui-timepicker-list {
+  max-height: 180px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-timepicker-list li {
+  list-style: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0.42rem 0.62rem;
+  font-size: 0.84rem;
+  color: #213a68;
+}
+
+.ui-timepicker-list li:hover {
+  background: #eff4ff;
+}
+
+.ui-timepicker-wrapper .ui-timepicker-time {
+  border: 0;
+}

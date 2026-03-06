@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import ipaddress
+import mimetypes
 import ssl
 import json
 import threading
@@ -20,6 +21,7 @@ ROOT_DIR = Path(__file__).resolve().parent
 DATA_FILE = ROOT_DIR / "workspace_data.json"
 TEMPLATES = ROOT_DIR / "templates"
 STATIC_DIR = ROOT_DIR / "static"
+COMPAT_DIRS = ("/css", "/js", "/img", "/images", "/data", "/datafile")
 
 
 def now_iso():
@@ -261,6 +263,68 @@ def load_file(file_path: Path, fallback: bytes = b"") -> bytes:
         return fallback
 
 
+def guess_content_type(file_path: Path, default: str = "application/octet-stream") -> str:
+    mime, _ = mimetypes.guess_type(file_path.name)
+    if not mime:
+        return default
+    if mime.startswith("text/"):
+        return f"{mime}; charset=utf-8"
+    return mime
+
+
+def compat_asset_response(path: str):
+    path_lower = path.lower()
+
+    if path_lower.startswith("/css/"):
+        fallback = load_file(STATIC_DIR / "compat.css")
+        if not fallback:
+            fallback = b"""* { box-sizing: border-box; }\nbody { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111; }\n"""
+        return fallback, "text/css; charset=utf-8"
+
+    if path_lower.startswith("/js/"):
+        fallback = load_file(STATIC_DIR / "compat-legacy.js")
+        if not fallback:
+            fallback = b"""(function () {\n  if (typeof window === 'undefined' || typeof window.jQuery === 'undefined') {\n    return;\n  }\n  var $ = window.jQuery;\n  if (!$.fn.bxSlider) {\n    $.fn.bxSlider = function () { return this; };\n  }\n  if (!$.fn.timepicker) {\n    $.fn.timepicker = function () { return this; };\n  }\n  if (!$.fn.draggable) {\n    $.fn.draggable = function () { return this; };\n  }\n  if (typeof window.Swiper === 'undefined') {\n    window.Swiper = function () {\n      return {\n        on: function () { return this; },\n        update: function () { return this; },\n        destroy: function () { return this; },\n      };\n    };\n  }\n  if (typeof window.NA_lead === 'undefined') {\n    window.NA_lead = function () {};\n  }\n})();"""
+        return fallback, "application/javascript; charset=utf-8"
+
+    if path_lower.startswith(("/img/", "/images/", "/data/", "/datafile/")):
+        fallback = load_file(STATIC_DIR / "fallback.png")
+        if not fallback:
+            fallback = b""
+        return fallback, "image/png"
+
+    return b"", "text/plain; charset=utf-8"
+
+
+def compat_php_response(path: str, query: str = ""):
+    query_line = "?" + query if query else ""
+    body = (
+        """<!doctype html>\n"""
+        "<html lang=\"ko\">\n"
+        "  <head>\n"
+        "    <meta charset=\"utf-8\" />\n"
+        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n"
+        "    <title>Sensorium static fallback</title>\n"
+        "    <style>\n"
+        "      body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#1d2a39;padding:28px}\n"
+        "      h1{font-size:20px;margin-bottom:8px}\n"
+        "      .card{max-width:760px;background:#fff;border:1px solid #d8dfeb;padding:18px 20px;border-radius:10px}\n"
+        "      code{word-break:break-all}\n"
+        "    </style>\n"
+        "  </head>\n"
+        "  <body>\n"
+        "    <div class=\"card\">\n"
+        "      <h1>센서리움 페이지 복제본(정적 뷰)</h1>\n"
+        "      <p>요청한 경로는 정적 뷰에서 직접 처리되는 엔드포인트가 아닙니다.</p>\n"
+        "      <p><strong>요청 경로:</strong> <code>{path}{query_line}</code></p>\n"
+        "      <p>원본 동작은 서버측 스크립트 연동이 필요하지만, 표시 페이지는 계속 확인 가능합니다.</p>\n"
+        "    </div>\n"
+        "  </body>\n"
+        "</html>\n".format(path=path, query_line=query_line)
+    ).encode("utf-8")
+    return body, "text/html; charset=utf-8"
+
+
 class SensoriumHandler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
 
@@ -308,6 +372,30 @@ class SensoriumHandler(BaseHTTPRequestHandler):
                 not_found(self)
                 return
             text_response(self, 200, html, "text/html; charset=utf-8")
+            return
+
+        if path.lower().endswith('.php'):
+            fallback_body, fallback_content_type = compat_php_response(path, parsed.query)
+            text_response(self, 200, fallback_body, fallback_content_type)
+            return
+
+        if any(path.startswith(f"{prefix}/") for prefix in COMPAT_DIRS):
+            candidate = (ROOT_DIR / path.lstrip("/")).resolve()
+            safe_root = ROOT_DIR.resolve()
+            if (
+                str(candidate).startswith(str(safe_root))
+                and candidate.is_file()
+            ):
+                data = load_file(candidate)
+                content_type = guess_content_type(candidate)
+                text_response(self, 200, data, content_type)
+                return
+
+            fallback_body, fallback_content_type = compat_asset_response(path)
+            if fallback_body:
+                text_response(self, 200, fallback_body, fallback_content_type)
+                return
+            not_found(self)
             return
 
         if path.startswith("/static/"):
