@@ -375,6 +375,12 @@ class SensoriumHandler(BaseHTTPRequestHandler):
             return
 
         if path.lower().endswith('.php'):
+            candidate = (ROOT_DIR / path.lstrip("/")).resolve()
+            safe_root = ROOT_DIR.resolve()
+            if str(candidate).startswith(str(safe_root)) and candidate.is_file():
+                html = load_file(candidate)
+                text_response(self, 200, html, "text/html; charset=utf-8")
+                return
             fallback_body, fallback_content_type = compat_php_response(path, parsed.query)
             text_response(self, 200, fallback_body, fallback_content_type)
             return
